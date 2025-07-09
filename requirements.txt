@@ -10,3 +10,4 @@ gtts
 python-dotenv
 pypdf
 sentence_transformers
+TTS

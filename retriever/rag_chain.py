@@ -6,16 +6,25 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 
 def build_rag_chain(llm, retriever, session_store, session_id):
     context_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Rephrase into standalone question."),
+        ("system", 
+        "You are a helpful assistant.\n"
+        "Given a conversation and a follow-up question, rephrase the question into a self-contained standalone query.\n"
+        "Only rephrase if necessary. Do not answer."),
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
     ])
 
+
     answer_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Use this context to answer.\n{context}"),
+        ("system", 
+        "You are a assistant. Use the following context to answer the question clearly. \n"
+        "Only use the given context. If the answer isn't in the context, say \"I'm not sure based on the information provided.\"\n"
+        "Keep the answer in 3 to 4 sentences until explicitly mentioned.\n\n"
+        "{context}"),
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
     ])
+
 
     hist_aware = create_history_aware_retriever(llm, retriever, context_prompt)
     answer_chain = create_stuff_documents_chain(llm, answer_prompt)
