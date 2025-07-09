@@ -1,0 +1,10 @@
+.env
+RAGSpeakenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.RAGSpeakenv/
+.RAGSpeakenv
+*.env
+.DS_Store
