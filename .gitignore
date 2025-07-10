@@ -10,3 +10,6 @@ __pycache__/
 .DS_Store
 vectorstore/
 env311/
+# Python virtualenvs
+env*/ 
+.venv/
